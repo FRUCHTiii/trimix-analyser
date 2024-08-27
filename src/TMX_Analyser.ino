@@ -1,8 +1,10 @@
 
 // Original idea & coding by Yves Caze, Savoie Plongee, modified and supplemented by GoDive BRB, 2021
 // Modified by Dominik Wiedmer 2021
-// Version 1.1 4.10.2021
-// Version 1.2 7.10.2023 Change of library names, Calibration goal less strict
+// Version 1.1 04.10.2021
+// Version 1.2 07.10.2023 Change of library names, Calibration goal less strict
+// Modified by Johannes Six 2024
+// Version 1.3 27.08.2024 Add Function to show "Air" when o2 is lower 22%
 
 
 #include <Wire.h>
@@ -301,10 +303,18 @@ void loop() {
       display.setCursor(10,50);
       display.display();
       }
-     else {
+    if (nitrox > 22) {
       display.setCursor(10,25);
       display.setTextSize(2);
       display.print("Nitrox ");
+      display.setCursor(10,45);
+      display.print(nitrox,0);
+      display.display();
+    }
+    else {
+      display.setCursor(10,25);
+      display.setTextSize(2);
+      display.print("Air ");
       display.setCursor(10,45);
       display.print(nitrox,0);
       display.display();
