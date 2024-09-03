@@ -5,6 +5,8 @@
 // Version 1.2 07.10.2023 Change of library names, Calibration goal less strict
 // Modified by Johannes Six 2024
 // Version 1.3 27.08.2024 Add Function to show "Air" when o2 is lower 22%
+//                        All outputs in english
+//                        Reset cursor in loop to fit my display better
 
 
 #include <Wire.h>
@@ -44,12 +46,12 @@ int16_t adc1;
 void cal(){
   display.clearDisplay();
   display.setTextSize(1);
-  display.setCursor(10,0);
-  display.print("Kalibrierung");
-  display.setCursor(10,10);
+  display.setCursor(8,3);
+  display.print("Calibration");
+  display.setCursor(8,13);
   display.print("O2 Sensor");
-  display.setCursor(10,20);
-  display.print("(Luft 20.9% O2 )");
+  display.setCursor(8,23);
+  display.print("(Air 20.9% O2 )");
   display.display();
   int i = 0;
   float Vavg = 0;
@@ -65,14 +67,14 @@ void cal(){
      
   
    display.clearDisplay();
-   display.setCursor(10,20);
-   display.print("Kalibrierung OK");
+   display.setCursor(8,23);
+   display.print("Calibration OK");
  
    Vavg = Vavg / (i - 1);
    Vcalib = Vavg;
 
-   display.setCursor(10,30);
-   display.print("V cal. = ");
+   display.setCursor(8,33);
+   display.print("V Cal. = ");
    display.print(Vcalib,2);
    display.print(" mV");
    display.display();   
@@ -141,14 +143,14 @@ void setup(void) {
  
   display.clearDisplay();
   display.setTextSize(1);
-  display.setCursor(10,0);
-  display.print("He Messbruecke");
-  display.setCursor(10,10);
-  display.print("V cell = ");
+  display.setCursor(8,3);
+  display.print("He Bridge");
+  display.setCursor(8,13);
+  display.print("V Cell = ");
   display.print(voltage,2);
   display.print("  mV");
-  display.setCursor(10,20);
-  display.print("VBruecke = ");
+  display.setCursor(8,23);
+  display.print("V Bridge = ");
   display.print(bruecke,2);
   display.print(" mV");
   display.display();
@@ -158,10 +160,10 @@ cal();
  
 
    display.clearDisplay();
-   display.setCursor(10,00);
-   display.print("Vorheizen");
-   display.setCursor(10,20);
-   display.print("Heliumsensor...");
+   display.setCursor(8,3);
+   display.print("Pre-heating");
+   display.setCursor(8,23);
+   display.print("Helium sensor...");
    display.display();
    delay(500);
 
@@ -170,12 +172,12 @@ cal();
          RA1.addValue(adc1);
          bruecke = RA1.getAverage()*gain;
          display.clearDisplay();
-         display.setCursor(10,00);
-         display.print("Vorheizen");
-         display.setCursor(10,20);
-         display.print("Heliumsensor...");
-         display.setCursor(10,40);    
-         display.print("V Bruecke= ");
+         display.setCursor(8,3);
+         display.print("Pre-heating");
+         display.setCursor(8,23);
+         display.print("Helium sensor...");
+         display.setCursor(8,43);    
+         display.print("V Bridge= ");
          display.print(bruecke,0);
          display.print(" mV  ");
          display.display(); 
@@ -183,13 +185,13 @@ cal();
          }
          
    display.clearDisplay();
-   display.setCursor(10,10);
-   display.print(" Heliumsensor OK");
+   display.setCursor(8,13);
+   display.print(" Helium sensor OK");
    display.display();           
    delay(2000);
 
    display.clearDisplay();
-   display.setCursor(10,10);
+   display.setCursor(8,13);
    display.print(" Analyser ready "); 
    display.display();         
    delay(2000);
@@ -218,7 +220,7 @@ void loop() {
 
     display.clearDisplay();
     display.setTextSize(1);
-    display.setCursor(0,0);
+    display.setCursor(0,3);
    // if (voltage > 1) {
        display.print("O2:");  
        display.print(nitrox,1);  
@@ -237,11 +239,11 @@ void loop() {
         
         }
         */
-    display.setCursor(0,10);
+    display.setCursor(0,13);
     display.setTextSize(1);
     display.print("O2mV ");
     display.print(voltage,2);
-    display.setCursor(66,10);       
+    display.setCursor(66,13);       
     display.print("HEmV ");
     display.print(bruecke,0);
     
@@ -271,7 +273,7 @@ void loop() {
     
     bruecke = bruecke - TempKomp;          
    
-    display.setCursor(66,0);
+    display.setCursor(66,3);
     display.setTextSize(1); 
     display.print("HE:");
     helium = 100 * bruecke / calibMD62;
@@ -292,30 +294,30 @@ void loop() {
       
   
     if (helium > 0) {
-      display.setCursor(10,25);
+      display.setCursor(10,28);
       display.setTextSize(2);
       display.print("Trimix ");
-      display.setCursor(10,45);
+      display.setCursor(10,48);
       display.print(nitrox,0);
       display.print(" / ");
       display.print(helium,0);
       display.print(" ");
-      display.setCursor(10,50);
+      display.setCursor(10,53);
       display.display();
       }
     if (nitrox > 22) {
-      display.setCursor(10,25);
+      display.setCursor(10,28);
       display.setTextSize(2);
       display.print("Nitrox ");
-      display.setCursor(10,45);
+      display.setCursor(10,48);
       display.print(nitrox,0);
       display.display();
     }
     else {
-      display.setCursor(10,25);
+      display.setCursor(10,28);
       display.setTextSize(2);
       display.print("Air ");
-      display.setCursor(10,45);
+      display.setCursor(10,48);
       display.print(nitrox,0);
       display.display();
       }
