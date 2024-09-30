@@ -7,6 +7,7 @@
 // Version 1.3 27.08.2024 Add Function to show "Air" when o2 is lower 22%
 //                        All outputs in english
 //                        Reset cursor in loop to fit my display better
+//                        Added Correction Value for o2 measurements
 
 
 #include <Wire.h>
@@ -215,8 +216,10 @@ void loop() {
 
   float nitrox = 0;
   float helium = 0;
+  float o2_correction = 0.02;
+  //Correct the o2 measurement by 1percent (if gas is below 20.9% correction value will be added; if gas is above 20.9% correction value will be subtracted)
   
-    nitrox = voltage * (20.9 / Vcalib);
+    nitrox = voltage * (20.9 / Vcalib) * (1 + (o2_correction * (20.9 - (voltage * (20.9 / Vcalib))) / 20.9));
 
     display.clearDisplay();
     display.setTextSize(1);
